@@ -1,0 +1,36 @@
+require('dotenv').config();
+const { Pool } = require('pg');
+const express = require('express');
+const { PrismaClient } = require('@prisma/client');
+
+const app = express();
+app.use(express.json());
+
+// PostgreSQL Pool (if you still need it somewhere else)
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Adjust based on your environment
+  },
+});
+
+// Prisma client instance
+const prisma = new PrismaClient();
+
+
+
+const addedproductRoutes=require('./routes/addedproducts');
+app.use('/p', addedproductRoutes);
+
+const userRoutes = require('./routes/user');
+app.use('/u', userRoutes);
+
+const userAddressRoutes = require('./routes/useraddress');
+app.use('/ua', userAddressRoutes);
+
+const productRoutes = require('./routes/fetchproducts');
+app.use('/products', productRoutes);
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
