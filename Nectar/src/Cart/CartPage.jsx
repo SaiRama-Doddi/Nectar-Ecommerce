@@ -33,7 +33,7 @@ const CartPage = () => {
  const fetchWorkAddresses = async () => {
   try {
     if (user?.id) {
-      const res = await axios.get(`http://localhost:5000/u/addresses/${user.id}`);
+      const res = await axios.get(`http://localhost:3000/u/addresses/${user.id}`);
       setWorkAddresses(res.data || []);  // updated this line
     }
   } catch (err) {
@@ -55,7 +55,10 @@ const CartPage = () => {
   const handleAddressSubmit = async () => {
     try {
       if (!form.address || !user?.id) return;
-      const res = await axios.post(`http://localhost:3000/u/addresses/${user.id}`, form);
+      const res = await axios.post(`http://localhost:3000/u/addresses`, {
+  ...form,
+  userId: user.id,
+});
       alert("Work address added!");
       setForm({ address: "", landmark: "", state: "", pincode: "" });
       setSelectedAddressType(`work-${res.data.id}`); // Select newly added work address

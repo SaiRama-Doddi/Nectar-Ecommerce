@@ -38,6 +38,9 @@ app.use('/ua', userAddressRoutes);
 const productRoutes = require('./routes/fetchproducts');
 app.use('/products', productRoutes);
 
+const orderRoutes = require('./routes/order');
+app.use('/order', orderRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

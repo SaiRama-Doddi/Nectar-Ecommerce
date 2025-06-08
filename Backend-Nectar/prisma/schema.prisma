@@ -14,12 +14,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Product {
   id                 Int      @id @default(autoincrement())
   title              String
   description        String
-  price              Float
+  price              Int 
   discountPercentage Float?
   rating             Float?
   stock              Int
@@ -28,9 +27,9 @@ model Product {
   thumbnail          String?
   createdAt          DateTime @default(now())
 
+  orders             Order[]  // ✅ Reverse relation
   @@unique([title, category, brand], name: "title_category_brand_unique")
 }
-
 
 model User {
   id        Int      @id @default(autoincrement())
@@ -42,7 +41,9 @@ model User {
   state     String
   pincode   String
   usertype  String   @default("user")
+
   addresses Address[]
+  orders    Order[]  // ✅ Reverse relation
 }
 
 model Address {
@@ -52,7 +53,9 @@ model Address {
   landmark  String
   state     String
   pincode   String
+
   user      User   @relation(fields: [userId], references: [id])
+  orders    Order[] // ✅ Reverse relation
 }
 
 model OtpCode {
@@ -60,4 +63,20 @@ model OtpCode {
   email      String
   code       String
   expires_at DateTime
+}
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  productId   Int
+  userId      Int
+  title       String
+  description String
+  price       Int
+  thumbnail   String?
+
+  user        User     @relation(fields: [userId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id])
+  addressId   Int
+  address     Address  @relation(fields: [addressId], references: [id])
+  createdAt   DateTime @default(now())
 }

@@ -50,18 +50,22 @@ const Header = () => {
       return;
     }
 
-    const res = await fetch('http://localhost:3000/u/send-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
+  const res = await fetch('http://localhost:3000/u/send-otp', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email }),
+});
 
-    if (res.ok) {
-      setUserEmail(email);
-      setShowOtpModal(true);
-    } else {
-      alert('Failed to send OTP');
-    }
+const data = await res.json();
+console.log("Response from OTP API:", data);
+
+if (res.ok) {
+  setUserEmail(email);
+  setShowOtpModal(true);
+} else {
+  alert(data.error || 'Failed to send OTP');
+}
+
   };
 
 const handleOtpSubmit = async () => {

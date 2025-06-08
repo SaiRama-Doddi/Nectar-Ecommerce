@@ -3,6 +3,7 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 // OTP generator
 function generateOTP() {
@@ -15,7 +16,11 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASS,
   },
+  tls: {
+    rejectUnauthorized: false, // 👈 This disables SSL cert validation
+  },
 });
+
 
 // Create user
 router.post('/createUser', async (req, res) => {
@@ -51,18 +56,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get user by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: parseInt(req.params.id) },
-    });
-    if (!user) return res.status(404).json({ message: "User not found" });
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ message: "Error fetching user" });
-  }
-});
+
 
 // Send OTP
 router.post('/send-otp', async (req, res) => {
@@ -115,6 +109,22 @@ router.post('/verify-otp', async (req, res) => {
     res.json({ message: "OTP verified", user });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+
+
+
+// Get user by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: parseInt(req.params.id) },
+    });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching user" });
   }
 });
 

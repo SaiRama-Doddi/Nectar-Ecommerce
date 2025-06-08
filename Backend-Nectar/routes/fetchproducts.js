@@ -129,4 +129,36 @@ router.get('/product/search', async (req, res) => {
   }
 });
 
+
+
+router.put('/convert-all-prices', async (req, res) => {
+  const USD_TO_INR_RATE = 82; // fixed conversion rate
+
+  try {
+    // Fetch all products
+    const products = await prisma.product.findMany();
+
+    if (products.length === 0) {
+      return res.status(404).json({ error: 'No products found' });
+    }
+
+    // Update each product's price
+    const updatePromises = products.map(product => {
+      const newPrice = product.price * USD_TO_INR_RATE;
+      return prisma.product.update({
+        where: { id: product.id },
+        data: { price: newPrice },
+      });
+    });
+
+    // Wait for all updates to finish
+    const updatedProducts = await Promise.all(updatePromises);
+
+    res.json({ message: 'All product prices converted to INR', updatedProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
