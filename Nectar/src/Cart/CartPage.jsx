@@ -90,6 +90,115 @@ const CartPage = () => {
 
   const selected = getSelectedAddress();
 
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => {
+      console.log("Razorpay script loaded");
+      resolve(true);
+    };
+    script.onerror = () => {
+      console.error("Failed to load Razorpay script");
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
+
+
+
+const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+console.log("selectedAddressType at order:", selectedAddressType);
+
+const handlePlaceOrder = async () => {
+  const res = await loadRazorpayScript();
+  if (!res) {
+    alert("Razorpay SDK failed to load.");
+    return;
+  }
+
+  const userId = user?.id;
+  console.log("userId:", user?.id);
+
+let addressId = null;
+if (selectedAddressType === "home") {
+  addressId = 0; // or user.addressId if exists
+} else if (selectedAddressType.startsWith("work-")) {
+  addressId = parseInt(selectedAddressType.split("-")[1], 10);
+}
+
+console.log("selectedAddressType:", selectedAddressType);
+console.log("addressId:", addressId);
+
+
+  if (!userId || !addressId) {
+    alert("User or address not selected");
+    return;
+  }
+
+  // For single product demo: send first product's id
+  // Adjust to your need if multiple products / cart
+  const productId = cartItems[0]?.id; 
+  if (!productId) {
+    alert("Cart is empty");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:3000/order/create-razorpay-order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: totalAmount,
+        userId,
+        addressId,
+        productId, // single product id to backend
+      }),
+    });
+
+    if (!response.ok) {
+      const errorMsg = await response.text();
+      throw new Error(errorMsg);
+    }
+
+    const data = await response.json();
+
+    const { razorpay } = data;
+
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: razorpay.amount,
+      currency: razorpay.currency,
+      name: "Nectar Store",
+      description: "Order Payment",
+      order_id: razorpay.id,
+      handler: function (response) {
+        alert("Payment Successful");
+        console.log("Razorpay payment response:", response);
+        console.log("Razorpay Key:", import.meta.env.VITE_RAZORPAY_KEY_ID);
+
+      },
+      prefill: {
+        name: user.name,
+        email: user.email,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+
+  } catch (err) {
+    console.error("Order placement failed:", err);
+    alert("Order placement failed. Please try again.");
+  }
+};
+
+
+
   return (
     <div className="h-screen flex flex-col relative bg-white">
       <Header />
@@ -282,6 +391,12 @@ const CartPage = () => {
                 <p>{selected.full}</p>
               </div>
             )}
+
+
+            <button onClick={() => handlePlaceOrder(totalAmount)} className="mt-6 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+  Place Order
+</button>
+
           </div>
         )}
       </div>
