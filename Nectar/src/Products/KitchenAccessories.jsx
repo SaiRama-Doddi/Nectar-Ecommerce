@@ -9,7 +9,7 @@ const KitchenAccessories = () => {
  const { addToCart, increaseQuantity, decreaseQuantity, getQuantity } = useCart();
  
    useEffect(() => {
-     fetch("http://localhost:5000/api/kitchen")
+     fetch("http://localhost:3000/products/kitchen")
        .then((res) => res.json())
        .then((data) => {
          setProducts(data);

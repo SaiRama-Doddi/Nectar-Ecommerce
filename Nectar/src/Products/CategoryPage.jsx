@@ -17,7 +17,7 @@ const CategoryPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/categories") // your backend URL here
+    fetch("http://localhost:3000/products/categories") // your backend URL here
       .then((res) => res.json())
       .then((data) => {
         setCategories(data); // data is [{ category, thumbnail }, ...]

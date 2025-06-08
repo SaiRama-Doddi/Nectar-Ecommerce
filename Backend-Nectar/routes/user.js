@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Create user
-router.post('/', async (req, res) => {
+router.post('/createUser', async (req, res) => {
   const { name, email, mobile, address, landmark, state, pincode, usertype } = req.body;
   try {
     const newUser = await prisma.user.create({

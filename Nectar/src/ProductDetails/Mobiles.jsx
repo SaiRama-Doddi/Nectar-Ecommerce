@@ -9,7 +9,7 @@ const Mobiles = () => {
   const { addToCart, increaseQuantity, decreaseQuantity, getQuantity } = useCart();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/mobiles")
+    fetch("http://localhost:3000/products/mobiles")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

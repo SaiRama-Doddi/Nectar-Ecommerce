@@ -106,7 +106,7 @@ router.get('/categories/:category', async (req, res) => {
 });
 
 // GET: Search by title or category
-router.get('/products/search', async (req, res) => {
+router.get('/product/search', async (req, res) => {
   try {
     const { title, category } = req.query;
 

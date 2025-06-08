@@ -8,7 +8,7 @@ const Groceries = () => {
    const { addToCart, increaseQuantity, decreaseQuantity, getQuantity } = useCart();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/kitchenary")
+    fetch("http://localhost:3000/products/kitchenary")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

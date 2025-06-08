@@ -21,7 +21,7 @@ const MobileLoginPage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/send-otp", {
+      const response = await fetch("http://localhost:3000/u/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mobile: mobileNumber }),
@@ -47,7 +47,7 @@ const MobileLoginPage = () => {
     setSuccessMessage("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/verify-otp", {
+      const response = await fetch("http://localhost:3000/u/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mobile: mobileNumber, otp }),

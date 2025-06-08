@@ -2,9 +2,16 @@ require('dotenv').config();
 const { Pool } = require('pg');
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+
+app.use(cors({
+  origin: "http://localhost:5173", // or the port where React runs
+}));
+
+
 
 // PostgreSQL Pool (if you still need it somewhere else)
 const pool = new Pool({

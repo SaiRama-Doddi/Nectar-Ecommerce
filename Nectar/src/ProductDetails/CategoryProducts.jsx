@@ -10,7 +10,7 @@ const CategoryProducts = () => {
   const [products, setProducts] = useState([]);
 const { addToCart, increaseQuantity, decreaseQuantity, getQuantity } = useCart();
   useEffect(() => {
-    fetch(`http://localhost:5000/api/categories/${category}`)
+    fetch(`http://localhost:3000/products/categories/${category}`)
       .then((res) => res.json())
       .then((data) => setProducts(data.products))
       .catch((err) => console.error("Error fetching category products", err));

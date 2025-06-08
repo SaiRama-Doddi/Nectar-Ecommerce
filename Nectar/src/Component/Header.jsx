@@ -50,7 +50,7 @@ const Header = () => {
       return;
     }
 
-    const res = await fetch('http://localhost:5000/api/send-otp', {
+    const res = await fetch('http://localhost:3000/u/send-otp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
@@ -65,7 +65,7 @@ const Header = () => {
   };
 
 const handleOtpSubmit = async () => {
-  const res = await fetch('http://localhost:5000/api/verify-otp', {
+  const res = await fetch('http://localhost:3000/u/verify-otp', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: userEmail, code: otp }),

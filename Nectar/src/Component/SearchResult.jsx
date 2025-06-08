@@ -20,7 +20,7 @@ export default function SearchResults() {
         const params = new URLSearchParams();
         if (title) params.append('title', title);
         if (category) params.append('category', category);
-        const response = await fetch(`http://localhost:5000/api/products/search?${params.toString()}`);
+        const response = await fetch(`http://localhost:3000/products/product/search?${params.toString()}`);
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || 'Failed to fetch');
         setProducts(data.products);

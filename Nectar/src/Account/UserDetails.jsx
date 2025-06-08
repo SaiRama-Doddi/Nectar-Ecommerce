@@ -69,7 +69,7 @@ const UserForm = () => {
     if (!validate()) return;
 
     try {
-      await axios.post("http://localhost:5000/api/users", form);
+      await axios.post("http://localhost:3000/u/createUser", form);
       alert("User info submitted successfully!");
       setForm({
         name: "",

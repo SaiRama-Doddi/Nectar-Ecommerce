@@ -30,16 +30,17 @@ const CartPage = () => {
   });
 
   // Fetch work addresses from backend for the logged in user
-  const fetchWorkAddresses = async () => {
-    try {
-      if (user?.id) {
-        const res = await axios.get(`http://localhost:5000/address/${user.id}`);
-        setWorkAddresses(res.data.addresses || []);
-      }
-    } catch (err) {
-      console.error("Error fetching addresses:", err);
+ const fetchWorkAddresses = async () => {
+  try {
+    if (user?.id) {
+      const res = await axios.get(`http://localhost:5000/u/addresses/${user.id}`);
+      setWorkAddresses(res.data || []);  // updated this line
     }
-  };
+  } catch (err) {
+    console.error("Error fetching addresses:", err);
+  }
+};
+
 
   useEffect(() => {
     fetchWorkAddresses();
@@ -54,7 +55,7 @@ const CartPage = () => {
   const handleAddressSubmit = async () => {
     try {
       if (!form.address || !user?.id) return;
-      const res = await axios.post(`http://localhost:5000/address/${user.id}`, form);
+      const res = await axios.post(`http://localhost:3000/u/addresses/${user.id}`, form);
       alert("Work address added!");
       setForm({ address: "", landmark: "", state: "", pincode: "" });
       setSelectedAddressType(`work-${res.data.id}`); // Select newly added work address
