@@ -34,13 +34,15 @@ router.post("/create-razorpay-order", async (req, res) => {
       data: {
         productId,
         userId,
-        addressId,
+         addressId: addressId === 0 ? null : addressId,
         title: product.title,
         description: product.description,
         price: amount, // in INR
         thumbnail: product.thumbnail,
       },
     });
+console.log("Incoming order request:", req.body);
+console.log("Created Razorpay order:", razorOrder);
 
     res.json({ razorpayOrder: razorOrder, orderRecord: newOrder });
   } catch (error) {

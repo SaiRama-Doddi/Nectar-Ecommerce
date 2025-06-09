@@ -164,15 +164,15 @@ console.log("addressId:", addressId);
 
     const data = await response.json();
 
-    const { razorpay } = data;
+    const { razorpayOrder } = data;
 
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: razorpay.amount,
-      currency: razorpay.currency,
+      amount: razorpayOrder.amount,
+      currency: razorpayOrder.currency,
       name: "Nectar Store",
       description: "Order Payment",
-      order_id: razorpay.id,
+      order_id: razorpayOrder.id,
       handler: function (response) {
         alert("Payment Successful");
         console.log("Razorpay payment response:", response);
@@ -267,7 +267,7 @@ console.log("addressId:", addressId);
 
               {/* Total price per item */}
               <p className="sm:ml-4 text-gray-900 font-semibold">
-                ${(item.price * item.quantity).toFixed(2)}
+                ₹{(item.price * item.quantity).toFixed(2)}
               </p>
             </div>
           ))}
@@ -284,7 +284,7 @@ console.log("addressId:", addressId);
           </p>
           <p className="text-gray-700 font-medium">
             Total price:{" "}
-            <span className="font-bold text-indigo-600">${totalPrice.toFixed(2)}</span>
+            <span className="font-bold text-indigo-600">₹ {totalPrice.toFixed(2)}</span>
           </p>
         </div>
         </div>
