@@ -8,9 +8,10 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://nectar-ecommerce.vercel.app', // ✅ Your live frontend domain
+  origin: ['http://localhost:5173', 'https://nectar-ecommerce.vercel.app'],
   credentials: true
 }));
+
 
 
 // PostgreSQL Pool (if you still need it somewhere else)
