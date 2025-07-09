@@ -161,20 +161,21 @@ router.post('/addresses', async (req, res) => {
 });
 
 
+// ✅ Test Mail Route
 router.get('/test-mail', async (req, res) => {
   try {
     await transporter.sendMail({
       from: process.env.EMAIL,
-      to: "sairamadoddi@gmail.com",
-      subject: "Test from Nectar App",
-      text: "✅ This means your Gmail SMTP is working!",
+      to: process.env.EMAIL, // send to yourself for testing
+      subject: "Nectar Test Email",
+      text: "✅ Test email sent from Nectar backend via Gmail SMTP!",
     });
-    res.send("Mail sent successfully");
+
+    res.status(200).send("Test mail sent successfully.");
   } catch (err) {
-    console.error(err);
-    res.status(500).send(err.message);
+    console.error("Test mail error:", err);
+    res.status(500).send("Failed to send test mail: " + err.message);
   }
 });
-
 
 module.exports = router;
