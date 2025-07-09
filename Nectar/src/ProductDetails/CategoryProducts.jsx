@@ -10,7 +10,7 @@ const CategoryProducts = () => {
   const [products, setProducts] = useState([]);
 const { addToCart, increaseQuantity, decreaseQuantity, getQuantity } = useCart();
   useEffect(() => {
-    fetch(`http://localhost:3000/products/categories/${category}`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/products/categories/${category}`)
       .then((res) => res.json())
       .then((data) => setProducts(data.products))
       .catch((err) => console.error("Error fetching category products", err));

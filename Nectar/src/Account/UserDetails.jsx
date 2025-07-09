@@ -69,7 +69,7 @@ const UserForm = () => {
     if (!validate()) return;
 
     try {
-      await axios.post("http://localhost:3000/u/createUser", form);
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/u/createUser`, form);
       alert("User info submitted successfully!");
       setForm({
         name: "",

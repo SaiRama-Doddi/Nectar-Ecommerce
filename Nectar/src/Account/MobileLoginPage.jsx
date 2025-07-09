@@ -47,7 +47,7 @@ const MobileLoginPage = () => {
     setSuccessMessage("");
 
     try {
-      const response = await fetch("http://localhost:3000/u/verify-otp", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/u/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mobile: mobileNumber, otp }),

@@ -17,7 +17,7 @@ const CategoryPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/products/categories") // your backend URL here
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/products/categories`) // your backend URL here
       .then((res) => res.json())
       .then((data) => {
         setCategories(data); // data is [{ category, thumbnail }, ...]

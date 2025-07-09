@@ -9,7 +9,7 @@ const Mobiles = () => {
   const { addToCart, increaseQuantity, decreaseQuantity, getQuantity } = useCart();
 
   useEffect(() => {
-    fetch("http://localhost:3000/products/mobiles")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/products/mobiles`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
