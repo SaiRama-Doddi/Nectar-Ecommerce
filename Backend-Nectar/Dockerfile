@@ -1,18 +1,23 @@
-# Use official Node.js image
+# Use Node.js LTS base image
 FROM node:18
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# Copy package.json files
 COPY package*.json ./
+
+# Install dependencies (including Prisma)
 RUN npm install
 
-# Copy all source files
+# Copy the rest of your app files
 COPY . .
 
-# Expose the port Express is using
+# Generate Prisma client
+RUN npx prisma generate
+
+# Expose the port your Express app runs on
 EXPOSE 3000
 
-# Start the app
+# Start the server
 CMD ["node", "server.js"]
