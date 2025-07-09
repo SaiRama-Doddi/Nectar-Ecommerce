@@ -160,4 +160,21 @@ router.post('/addresses', async (req, res) => {
   }
 });
 
+
+router.get('/test-mail', async (req, res) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: "sairamadoddi@gmail.com",
+      subject: "Test from Nectar App",
+      text: "✅ This means your Gmail SMTP is working!",
+    });
+    res.send("Mail sent successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+
 module.exports = router;
