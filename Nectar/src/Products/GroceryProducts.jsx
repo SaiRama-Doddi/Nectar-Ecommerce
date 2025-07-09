@@ -14,7 +14,9 @@ const GroceryProducts = () => {
 
 
 useEffect(() => {
-  fetch("http://localhost:3000/products/groceries?limit=10")
+fetch(`${import.meta.env.VITE_API_BASE_URL}/products/groceries?limit=10`)
+
+
     .then((res) => res.json())
     .then((data) => {
       // ✅ Filter only fruits and vegetables based on `category` field
