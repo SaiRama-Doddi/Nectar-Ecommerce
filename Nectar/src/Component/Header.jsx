@@ -69,7 +69,7 @@ if (res.ok) {
   };
 
 const handleOtpSubmit = async () => {
-  const res = await fetch('http://localhost:3000/u/verify-otp', {
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/u/verify-otp`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: userEmail, code: otp }),
