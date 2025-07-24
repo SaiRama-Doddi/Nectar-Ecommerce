@@ -20,7 +20,7 @@ const Groceries = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
         <Header />
       {/* Main Content */}
-      <div className="flex-grow px-4 pt-6 pb-24">
+      <div className="flex-grow px-4 pt-6 pb-40">
         
 
         <div className="h-[calc(100vh-300px)] overflow-y-auto pr-1 scrollbar-hide">
