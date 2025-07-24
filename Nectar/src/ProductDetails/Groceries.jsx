@@ -63,7 +63,7 @@ const Groceries = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50">
       <Header />
 
       <div className="flex flex-grow relative">
@@ -96,8 +96,8 @@ const Groceries = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 px-4 pt-6 pb-24 ml-0 ">
-          <div className="h-[calc(100vh-300px)] mb-16 overflow-y-auto pr-1 scrollbar-hide">
+        <main className="flex-1 px-4 pt-6 ml-0 mb-18">
+          <div className="h-[calc(100vh-300px)]  overflow-y-auto pr-1 scrollbar-hide">
             {filtered.length === 0 ? (
               <p className="text-gray-600 text-center mt-4">
                 No products found for selected filters.
