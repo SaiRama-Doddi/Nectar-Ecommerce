@@ -20,10 +20,10 @@ const Groceries = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
         <Header />
       {/* Main Content */}
-      <div className="flex-grow px-4 pt-6 pb-40">
+      <div className="flex-grow px-4 pt-6 pb-36">
         
 
-        <div className="h-[calc(100vh-300px)] overflow-y-auto pr-1 scrollbar-hide">
+        <div className="h-[calc(100vh-300px)] overflow-y-auto pr-1 scrollbar-hide mb-16">
            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
                     {products.map((product) => {
                       const quantity = getQuantity(product.id);
