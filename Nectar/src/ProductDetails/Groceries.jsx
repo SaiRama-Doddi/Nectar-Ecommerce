@@ -97,7 +97,7 @@ const Groceries = () => {
 
         {/* Main Content */}
         <main className="flex-1 px-4 pt-6 pb-24 ml-0 ">
-          <div className="h-[calc(100vh-300px)] overflow-y-auto pr-1 scrollbar-hide">
+          <div className="h-[calc(100vh-300px)] mb-16 overflow-y-auto pr-1 scrollbar-hide">
             {filtered.length === 0 ? (
               <p className="text-gray-600 text-center mt-4">
                 No products found for selected filters.
