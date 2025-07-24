@@ -172,7 +172,7 @@ const UserForm = () => {
             </div>
 
             {/* Submit Button */}
-            <div>
+            <div className="mb-6">
               <button
                 type="submit"
                 className="w-full bg-green-600 text-white hover:bg-green-700 font-medium py-2 rounded-md transition duration-300 text-sm"
